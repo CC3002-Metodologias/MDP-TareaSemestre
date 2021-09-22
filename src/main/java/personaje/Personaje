@@ -1,5 +1,0 @@
-package personaje;
-
-public class Personaje extends AbstractPersonaje{
-
-}
