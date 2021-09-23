@@ -1,4 +1,4 @@
-package Items;
+package personaje;
 
 /**
  * Enumerator that represents the items explain in the project

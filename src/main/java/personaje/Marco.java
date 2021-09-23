@@ -2,11 +2,12 @@ package personaje;
 
 public class Marco extends AbstractPlayer {
 
+    //Constructor de clase del personaje Marco
     public Marco(){
-        super(1, 2, 1.5, 10, 50);
+        super(1, 4, 5, 10, 50);
     }
 
     @Override
-    public void SiendoAtacado(Ipersonaje p1, AttackType attackType){}
+    public void SiendoAtacado(Ienemy p1){}
 
 }
