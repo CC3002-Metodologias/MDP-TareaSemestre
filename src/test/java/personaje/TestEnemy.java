@@ -1,7 +1,7 @@
 package personaje;
-
 import org.junit.jupiter.api.*;
 
+//Clase para testear los enemigos
 public class TestEnemy {
 
     private Boo testBoo;
@@ -25,11 +25,11 @@ public class TestEnemy {
         Assertions.assertNotEquals(testGoomba, testSpiny);
         Assertions.assertNotEquals(testSpiny, new Object());
 
-        System.out.print(testSpiny.getNivel());
-        System.out.print(testBoo.getAtaque());
-        System.out.print(testGoomba.getDefensa());
-        System.out.print(testBoo.getHPactual());
-        System.out.print(testSpiny.getHPmax());
+        System.out.println(testSpiny.getNivel());
+        System.out.println(testBoo.getAtaque());
+        System.out.println(testGoomba.getDefensa());
+        System.out.println(testBoo.getHPactual());
+        System.out.println(testSpiny.getHPmax());
     }
 
     @Test
@@ -47,6 +47,7 @@ public class TestEnemy {
         testSpiny.setNivel(4);
         testBoo.setHP(2);
         testGoomba.setHPmax(10);
+        testGoomba.setHP(11); //Este set deberia dejar el HPactual en 10, ya que HPactual no puede ser mayor a HPmax
 
         //Comprobamos que las variables que fueron cambiadas tengan los nuevos valores entregados
         Assertions.assertEquals(testBoo.getAtaque(), 3);
@@ -54,6 +55,9 @@ public class TestEnemy {
         Assertions.assertEquals(testSpiny.getNivel(), 4);
         Assertions.assertEquals(testBoo.getHPactual(), 2);
         Assertions.assertEquals(testGoomba.getHPmax(), 10);
+        Assertions.assertEquals(testGoomba.getHPactual(), 10); //Comprobamos que se cumpla que HPactual<=HPmax
+
+
     }
 
     @Test

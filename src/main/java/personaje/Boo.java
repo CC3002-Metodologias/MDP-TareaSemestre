@@ -7,7 +7,7 @@ public class Boo extends AbstractEnemy{
     }
 
     @Override
-    public void SiendoAtacado(Ipersonaje p1, AttackType t1){
+    public void siendoAtacado(Ipersonaje p1, AttackType t1){
 
     }
 }

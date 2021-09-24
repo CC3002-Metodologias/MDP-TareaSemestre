@@ -8,5 +8,5 @@ public class Luis extends AbstractPlayer{
     }
 
     @Override
-    public void SiendoAtacado(Ienemy p1){}
+    public void siendoAtacado(Ienemy p1){}
 }

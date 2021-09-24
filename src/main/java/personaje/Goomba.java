@@ -1,5 +1,6 @@
 package personaje;
 
+//Clase del enemigo Goomba
 public class Goomba extends AbstractEnemy{
     //Constructor de la clase, usa el mismo de AbstractEnemy
     public Goomba(){
@@ -7,6 +8,6 @@ public class Goomba extends AbstractEnemy{
     }
 
     @Override
-    public void SiendoAtacado(Ipersonaje p1, AttackType t1){
+    public void siendoAtacado(Ipersonaje p1, AttackType t1){
     }
 }

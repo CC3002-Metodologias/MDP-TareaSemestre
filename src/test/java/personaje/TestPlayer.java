@@ -1,7 +1,7 @@
 package personaje;
-
 import org.junit.jupiter.api.*;
 
+//Clase para testear los players
 public class TestPlayer {
 
     private Marco testMarco;
@@ -105,7 +105,7 @@ public class TestPlayer {
         //Bajamos tanto HP Actual como FP actual de Luis y Marco para que puedan ser subidos al usar los Items
         testLuis.setHP(5);
         testLuis.setFPactual(40);
-        testMarco.setHP(10);
+        testMarco.setHP(9.5);
         testMarco.setFPactual(30);
 
         //Utiizamos los metodos para utilizar los diferentes items.
@@ -117,10 +117,13 @@ public class TestPlayer {
         testMarco.useRedMushroom();
 
         //Ahora comprobamos que los items hayan hecho efecto en las diferentes variables(HPactual y FPactual)
-        Assertions.assertEquals(testLuis.getHPactual(),6);
+        Assertions.assertEquals(testLuis.getHPactual(),7);
         Assertions.assertEquals(testLuis.getFPactual(), 43);
-        Assertions.assertEquals(testMarco.getHPactual(),12);
+        Assertions.assertEquals(testMarco.getHPactual(),10);
         Assertions.assertEquals(testMarco.getFPactual(), 33);
+
+        System.out.println("HP max de Marco = " + testMarco.getHPmax());
+        System.out.println("HP actual de Marco = " + testMarco.getHPactual());
 
     }
 }
