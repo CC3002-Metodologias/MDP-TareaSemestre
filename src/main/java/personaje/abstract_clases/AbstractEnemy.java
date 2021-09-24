@@ -1,6 +1,10 @@
-package personaje;
+package personaje.abstract_clases;
 
-public abstract class  AbstractEnemy extends AbstractPersonaje implements Ienemy{
+import personaje.AttackType;
+import personaje.interfaces.Ienemy;
+import personaje.interfaces.Ipersonaje;
+
+public abstract class  AbstractEnemy extends AbstractPersonaje implements Ienemy {
 
     //Constructor base
     public AbstractEnemy(int nivel, double ataque, double defensa, double hpmax){

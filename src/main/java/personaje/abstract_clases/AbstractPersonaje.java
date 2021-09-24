@@ -1,4 +1,4 @@
-package personaje;
+package personaje.abstract_clases;
 
 //personaje base, tanto enemigos como players
 public abstract class AbstractPersonaje {

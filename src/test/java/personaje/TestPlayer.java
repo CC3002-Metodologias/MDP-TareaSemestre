@@ -22,13 +22,11 @@ public class TestPlayer {
         Assertions.assertNotEquals(testLuis, testMarco);
         Assertions.assertNotEquals(testMarco, new Object());
 
-        System.out.print(testMarco.getNivel());
-        System.out.print(testLuis.getAtaque());
-        System.out.print(testMarco.getDefensa());
-        System.out.print(testLuis.getHPactual());
-        System.out.print(testMarco.getHPmax());
-        System.out.print(testLuis.getFPmax());
-        System.out.print(testMarco.getFPactual());
+        System.out.println("Nivel de Marco = " + testMarco.getNivel());
+        System.out.println("Ataque de Marco = " + testMarco.getAtaque());
+        System.out.println("HP maximo de Luis = " + testLuis.getHPmax());
+        System.out.println("Defensa de Luis = " + testLuis.getDefensa());
+
     }
 
     @Test

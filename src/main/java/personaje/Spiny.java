@@ -1,6 +1,9 @@
 package personaje;
 
-public class Spiny extends AbstractEnemy{
+import personaje.abstract_clases.AbstractEnemy;
+import personaje.interfaces.Ipersonaje;
+
+public class Spiny extends AbstractEnemy {
     //Constructor de la clase, usa el mismo de AbstractEnemy
     public Spiny(){
         super(2, 1, 3, 15);

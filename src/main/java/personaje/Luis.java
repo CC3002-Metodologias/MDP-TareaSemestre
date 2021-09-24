@@ -1,6 +1,9 @@
 package personaje;
 
-public class Luis extends AbstractPlayer{
+import personaje.abstract_clases.AbstractPlayer;
+import personaje.interfaces.Ienemy;
+
+public class Luis extends AbstractPlayer {
 
     //Constructor de clase del personaje Marco
     public Luis(){

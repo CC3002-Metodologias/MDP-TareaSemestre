@@ -1,9 +1,13 @@
-package personaje;
+package personaje.abstract_clases;
+import personaje.AttackType;
+import personaje.interfaces.Ienemy;
+import personaje.interfaces.Ipersonaje;
+import personaje.Items;
+
 import java.util.ArrayList;
-import java.util.List;
 
 //Se crea la clase abstracta de Player con todos los metodos y variables en comun que comparten Luis y Carlos (posibles personajes a usar)
-public abstract class AbstractPlayer extends AbstractPersonaje implements Ipersonaje{
+public abstract class AbstractPlayer extends AbstractPersonaje implements Ipersonaje {
 
     private double FPmax; //FP exclusivo de Player (Marco o Luis por el momento)
     private double FPactual; //FP actual del jugador, No puede ser mayor al FP Max ni menor a 0

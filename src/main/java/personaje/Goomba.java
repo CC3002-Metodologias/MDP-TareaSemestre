@@ -1,7 +1,10 @@
 package personaje;
 
+import personaje.abstract_clases.AbstractEnemy;
+import personaje.interfaces.Ipersonaje;
+
 //Clase del enemigo Goomba
-public class Goomba extends AbstractEnemy{
+public class Goomba extends AbstractEnemy {
     //Constructor de la clase, usa el mismo de AbstractEnemy
     public Goomba(){
         super( 1, 2, 4, 7);

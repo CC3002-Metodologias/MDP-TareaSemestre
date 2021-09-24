@@ -1,6 +1,9 @@
 package personaje;
 
-public class Boo extends AbstractEnemy{
+import personaje.abstract_clases.AbstractEnemy;
+import personaje.interfaces.Ipersonaje;
+
+public class Boo extends AbstractEnemy {
     //Constructor de la clase, usa el mismo de AbstractEnemy
     public Boo(){
         super(3, 4, 2, 5);
