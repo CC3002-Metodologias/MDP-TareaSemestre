@@ -11,6 +11,33 @@ public class Marco extends AbstractPlayer {
     }
 
     @Override
-    public void siendoAtacado(Ienemy p1){}
+    public void attack(Ienemy p1, AttackType t1) {
+        if(t1==AttackType.MARTILLO){
+            usoFP(2);
+            int azar = (int)(Math.random()*3);
+            if(azar == 1){
 
+            }else{
+                p1.siendoAtacadoLuis(this, t1);
+            }
+        }else {
+            usoFP(1);
+            p1.siendoAtacadoLuis(this, t1);
+        }
+    }
+
+    @Override
+    public void siendoAtacadoporGoomba(Goomba g){
+        this.atacado(g);
+    }
+    @Override
+    public void siendoAtacadoporSpiny(Spiny s){
+        this.atacado(s);
+    }
+
+    @Override
+    public void siendoAtacadoporBoo(Boo boo) {
+
+    }
 }
+

@@ -13,11 +13,16 @@ public abstract class  AbstractEnemy extends AbstractPersonaje implements Ienemy
 
     //Metodo que da las instrucciones de que hacer en caso de hacer atacado, esto según los personajes involucrados por lo cual-
     //solo se deja la firma, ya que en la clase de cada personaje se define instrucciones diferentes segun el caso.
-    public abstract void siendoAtacado(Ipersonaje p1, AttackType t1);
 
-    public void attack(Ipersonaje p1){
-        if (this.isKO()==Boolean.FALSE){
-            p1.siendoAtacado(this);
-        }
+    public abstract void attack(Ipersonaje p1);
+
+    public void atacadoporMartillo(Ipersonaje p1){
+        double daño= 2 * p1.getAtaque() * (p1.getNivel() / this.getDefensa());
+        this.receiveDamage(daño);
     }
+    public void atacadoporSalto(Ipersonaje p1){
+        double daño= 1 * p1.getAtaque() * (p1.getNivel() / this.getDefensa());
+        this.receiveDamage(daño);
+    }
+
 }

@@ -56,4 +56,10 @@ public abstract class AbstractPersonaje {
         return (HPactual==0);
     }
 
+    public void receiveDamage(double daño){
+        double hpa = getHPactual();
+        setHP(hpa-daño);
+    }
+
+
 }
