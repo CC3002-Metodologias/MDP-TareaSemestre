@@ -22,9 +22,11 @@ public interface Ipersonaje {
     void siendoAtacadoporGoomba(Goomba goomba);
     void siendoAtacadoporSpiny(Spiny spiny);
 
+    //Metodo que calcula y cambia la variable de HPactual del player atacado segun las variables del atacante y del jugador
+    //siendo atacado. Este se usa en caso de que el player pueda ser atacado por el Ienemy en cuestión.
+    void atacado(Ienemy e1);
     //metodo para producir la consecuencia de ser pinchado por Spiny sobre un player.
     void pinchado();
-
     //metodo para reducir el FPactual que recibe un int de la cantidad que hay reducir
     void usoFP(int f);
 }

@@ -70,8 +70,7 @@ public abstract class AbstractPlayer extends AbstractPersonaje implements Iperso
     //solo se deja la firma, ya que en la clase de cada personaje se define instrucciones diferentes segun el caso.
     protected abstract void attack(Ienemy p1, AttackType attackType);
 
-    //Metodo que calcula y cambia la varible de HPactual del player atacado segun las variables del atacante y del jugador
-    //siendo atacado. Este se usa en caso de que el player pueda ser atacado por el Ienemy en cuestión.
+    @Override
     public void atacado(Ienemy p1){
         double daño= 0.75 * p1.getAtaque() * (p1.getNivel() / this.getDefensa());
         this.receiveDamage(daño);
