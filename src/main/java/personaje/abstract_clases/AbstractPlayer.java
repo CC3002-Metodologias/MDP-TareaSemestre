@@ -60,10 +60,15 @@ public abstract class AbstractPlayer extends AbstractPersonaje implements Iperso
     }
 
     //Implementacion de los ataques de players a enemigos
-    public abstract void attack(Ienemy p1, AttackType attackType);
-
+    @Override
+    public void ataque(Ienemy e1, AttackType t1) {
+        if (this.isKO() == Boolean.FALSE) {
+            attack(e1, t1);
+        }
+    }
     //Metodo que da las instrucciones de que hacer en caso de hacer atacado, esto según los personajes involucrados por lo cual-
     //solo se deja la firma, ya que en la clase de cada personaje se define instrucciones diferentes segun el caso.
+    protected abstract void attack(Ienemy p1, AttackType attackType);
 
     //Metodo que calcula y cambia la varible de HPactual del player atacado segun las variables del atacante y del jugador
     //siendo atacado. Este se usa en caso de que el player pueda ser atacado por el Ienemy en cuestión.
@@ -71,10 +76,12 @@ public abstract class AbstractPlayer extends AbstractPersonaje implements Iperso
         double daño= 0.75 * p1.getAtaque() * (p1.getNivel() / this.getDefensa());
         this.receiveDamage(daño);
     }
+    @Override
     public void pinchado(){
         double daño = getHPactual()*0.05;
         this.receiveDamage(daño);
     }
+    @Override
     public void usoFP(int f){
         int fpa = getFPactual();
         setFPactual(fpa-f);

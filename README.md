@@ -33,7 +33,7 @@ la clase AbstractPlayers. Boo, Goomba y Spiny enemigos que extienden la
 clase AbstractEnemy. A cada uno de estos se le dan estadísticas propias en 
 las variables de su clase. 
 
-Dentro de la carpeta test tenemos dos clases, TestEnemy y TestPlayer. En cada 
+Dentro de la carpeta test tenemos 2 clases, TestEnemy y TestPlayer. En cada 
 una de estas se hacen los test de todos los personajes creados separados en 
-enemigos y players. 
-
+enemigos y players. Además se encuentra TestAttack que testea las dinamicas de ataques entre Ienemys e
+Iplayers funcionen correctamente. 
