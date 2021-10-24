@@ -29,4 +29,9 @@ public interface Ipersonaje {
     void pinchado();
     //metodo para reducir el FPactual que recibe un int de la cantidad que hay reducir
     void usoFP(int f);
+
+    //Metodo para usar un item de tipo HoneySyrup
+    void useHoneySyrup();
+    //Metodo para usar un item de tipo RedMushroom
+    void useRedMushroom();
 }

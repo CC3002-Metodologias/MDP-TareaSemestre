@@ -2,7 +2,7 @@ package personaje.abstract_clases;
 import personaje.AttackType;
 import personaje.interfaces.Ienemy;
 import personaje.interfaces.Ipersonaje;
-import personaje.Items;
+
 
 import java.util.ArrayList;
 
@@ -11,14 +11,13 @@ public abstract class AbstractPlayer extends AbstractPersonaje implements Iperso
 
     private int FPmax; //FP exclusivo de Player (Marco o Luis por el momento)
     private int FPactual; //FP actual del jugador, No puede ser mayor al FP Max ni menor a 0
-    public ArrayList<Items> armamento; //Se agrega una variable correspondiente al equipamento de objetos
+
 
     //Constructor que usa el mismo que AbstractPersonaje, pero se agrega la varible FP
     public AbstractPlayer(int nivel, double ataque, double defensa, double hpmax, int fp){
         super(nivel,ataque,defensa,hpmax);
         this.FPmax = fp;
         this.FPactual = fp;
-        armamento = new ArrayList<Items>();
     }
 
     //Metodos para saber el valor de FP y tambien poder setearla
@@ -35,25 +34,18 @@ public abstract class AbstractPlayer extends AbstractPersonaje implements Iperso
         this.FPactual = NewFp;
     }
 
-    //Metodo para ver los elementos en el armamento
-    public ArrayList<Items> inventario() {return armamento;}
-
-    //Metodo para añadir elementos en el armamento
-    public void addItem(Items i){
-        armamento.add(i);
-    }
 
     //Metodo para usar un item de tipo Star
     public void useStar(){
         //invisible
     }
-    //Metodo para usar un item de tipo RedMushroom
+    @Override
     public void useRedMushroom(){
         double hpmas = this.getHPmax() * 0.1;
         double hpnuevo = this.getHPactual() + hpmas;
         this.setHP(hpnuevo); //aumenta la vida segun su HP maxima
     }
-    //Metodo para usar un item de tipo HoneySyrup
+    @Override
     public void useHoneySyrup(){
         int fpnuevo = this.getFPactual() + 3;
         this.setFPactual(fpnuevo); //aumenta 3 puntos de FP

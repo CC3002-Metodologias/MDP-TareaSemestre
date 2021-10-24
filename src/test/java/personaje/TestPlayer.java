@@ -1,5 +1,7 @@
 package personaje;
 import org.junit.jupiter.api.*;
+import personaje.Items.HoneySyrup;
+import personaje.Items.RedMushroom;
 
 //Clase para testear los players
 public class TestPlayer {
@@ -81,24 +83,9 @@ public class TestPlayer {
     @Test
     public void itemsTest(){
 
-        Items star = Items.STAR;
-        Items honey = Items.HoneySyrup;
-        Items mushroom = Items.RedMushroom;
+        HoneySyrup honey = new HoneySyrup();
+        RedMushroom mushroom = new RedMushroom();
 
-        //Comprobamos que los inventarios al momento de instanciar los players(Marco y Luis) esten vacios
-        assert testLuis.inventario().size()==0;
-        assert testMarco.inventario().size()==0;
-
-        //Testeamos el metodo addItem
-        testLuis.addItem(star);
-        testLuis.addItem(honey);
-        testMarco.addItem(mushroom);
-
-        Assertions.assertEquals(testLuis.inventario().size(), 2);
-        Assertions.assertEquals(testLuis.inventario().get(0), star);
-        Assertions.assertEquals(testLuis.inventario().get(1), honey);
-        Assertions.assertEquals(testMarco.inventario().size(), 1);
-        Assertions.assertEquals(testMarco.inventario().get(0), mushroom);
 
         //Bajamos tanto HP Actual como FP actual de Luis y Marco para que puedan ser subidos al usar los Items
         testLuis.setHP(5);
