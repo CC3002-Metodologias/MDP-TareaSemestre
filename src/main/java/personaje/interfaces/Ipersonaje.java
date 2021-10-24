@@ -6,6 +6,8 @@ import personaje.Goomba;
 import personaje.Spiny;
 import personaje.interfaces.Ienemy;
 
+import java.util.List;
+
 //Interfaz para poder llamar a ciertos metodos a nivel de clases abstractas que aún no estan definidos y que comparten diferentes clases.
 public interface Ipersonaje {
 
@@ -34,4 +36,8 @@ public interface Ipersonaje {
     void useHoneySyrup();
     //Metodo para usar un item de tipo RedMushroom
     void useRedMushroom();
+    //Metodo para eleminar el Ipersonaje de la lista de personajes principales luego de ser KO.
+    void deletePList(List<Ipersonaje> ipersonajeList);
+
+    boolean isKO();
 }

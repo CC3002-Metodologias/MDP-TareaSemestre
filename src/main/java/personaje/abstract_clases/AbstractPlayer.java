@@ -5,6 +5,7 @@ import personaje.interfaces.Ipersonaje;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 //Se crea la clase abstracta de Player con todos los metodos y variables en comun que comparten Luis y Carlos (posibles personajes a usar)
 public abstract class AbstractPlayer extends AbstractPersonaje implements Ipersonaje {
@@ -45,6 +46,12 @@ public abstract class AbstractPlayer extends AbstractPersonaje implements Iperso
         double hpnuevo = this.getHPactual() + hpmas;
         this.setHP(hpnuevo); //aumenta la vida segun su HP maxima
     }
+
+    @Override
+    public void deletePList(List<Ipersonaje> ipersonajeList) {
+        ipersonajeList.remove(this);
+    }
+
     @Override
     public void useHoneySyrup(){
         int fpnuevo = this.getFPactual() + 3;

@@ -2,6 +2,8 @@ package personaje.interfaces;
 
 import personaje.AttackType;
 
+import java.util.List;
+
 public interface Ienemy {
 
     //metodos para obtener la estadistica de ataque y nivel, util para calcular el daño
@@ -19,4 +21,9 @@ public interface Ienemy {
     //metodos para ajustar la vida(HPactual) tras ser atacado con el daño recibido según el tipo de ataque y atacante,
     void atacadoporMartillo(Ipersonaje p1);
     void atacadoporSalto(Ipersonaje p1);
+
+    //Metodo para eleminar el iEnemy de la lista de enemigos luego de ser KO.
+    void deleteEList(List<Ienemy> ienemyList);
+
+    boolean isKO();
 }
