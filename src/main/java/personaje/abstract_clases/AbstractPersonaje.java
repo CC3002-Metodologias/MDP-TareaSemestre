@@ -51,10 +51,12 @@ public abstract class AbstractPersonaje {
         }
     }
 
+
     //Metodo para saber si un personaje esta derrotado
-    public Boolean isKO(){
+    public boolean isKO(){
         return (HPactual==0);
     }
+
 
     public void receiveDamage(double daño){
         double hpa = getHPactual();
