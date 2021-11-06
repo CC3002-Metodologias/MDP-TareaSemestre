@@ -14,6 +14,18 @@ public interface Ipersonaje {
     //metodos para obtener la estadistica de ataque y nivel, util para calcular el daño
     double getAtaque();
     int getNivel();
+    double getDefensa();
+    double getHPmax();
+    int getFPmax();
+
+    void setAtaque(double v);
+    void setNivel(int v);
+    void setDefensa(double v);
+    void setHPmax(double v);
+    void setHP(double v);
+    void setFPmax(int v);
+    void setFPactual(int v);
+
 
     //metodo para implementar el ataque solo si el Ipersonaje atacante NO esta KO.
     void ataque(Ienemy e1, AttackType a1);
@@ -40,4 +52,6 @@ public interface Ipersonaje {
     void deletePList(List<Ipersonaje> ipersonajeList);
 
     boolean isKO();
+
+
 }

@@ -4,6 +4,7 @@ import personaje.interfaces.Ipersonaje;
 import personaje.interfaces.Items;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RedMushroom implements Items {
 
@@ -12,7 +13,7 @@ public class RedMushroom implements Items {
         p1.useRedMushroom();
     }
     @Override
-    public void deleteBaul(ArrayList<Items> baul) {
+    public void deleteBaul(List<Items> baul) {
         baul.remove(this);
 
     }

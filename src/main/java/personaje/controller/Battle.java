@@ -7,29 +7,38 @@ import personaje.interfaces.Ienemy;
 import personaje.interfaces.Ipersonaje;
 import personaje.interfaces.Items;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.*;
 
 public class Battle {
-    public int Kills;
-    public int Score;
-    public int Round;
-    private personaje.Marco PMarco;
-    private personaje.Luis PLuis;
-    private List<Ipersonaje> PlayersList;
+    private int Kills;
+    private int Score;
+    private int Round;
+    PlayerIn PMarco;
+    PlayerIn PLuis;
+    private List<PlayerIn> PlayersList;
     private List<Ienemy> EnemyList;
     private List<Items> Baul;
+    private boolean ItOver;
+    private boolean Win;
 
-    public Battle(int kills, int score, int round, List<Items> baul){
-        Kills = kills; Score = score;
-        Round = round; Baul = baul;
+    public Battle(PlayerIn playerMarco, PlayerIn playerLuis){
+        Kills = 0; Score = 0;
+        Round = 0; Baul = new ArrayList<Items>();
 
-        PMarco = new Marco();
-        PLuis = new Luis();
+        PMarco = playerMarco;
+        PLuis = playerLuis;
         Baul = new ArrayList<Items>();
         EnemyList = new ArrayList<Ienemy>();
-        PlayersList = new ArrayList<Ipersonaje>();
+        PlayersList = new ArrayList<PlayerIn>();
+
+        ItOver = false;
+        Win = false;
     }
+
+
+
     private void newMushroom(){
         RedMushroom mushroom = new RedMushroom();
         Baul.add(mushroom);
@@ -54,7 +63,7 @@ public class Battle {
     }
 
     //Metodo que empieza un nueva ronda segun sea el numero de esta
-    private void start_newRound(){
+    private void start_newRound() throws IOException {
         if (Round == 1) {
             round1();
         }
@@ -67,7 +76,7 @@ public class Battle {
     }
 
     // metodo que ejecuta la ronda 1 completa
-    private void round1(){
+    private void round1() throws IOException {
         //senteciamos y añadimos 3 Honey Syrup y 3 Red Mushroom al baul compartido
         newHoney(); newHoney(); newHoney();
         newMushroom(); newMushroom(); newMushroom();
@@ -79,7 +88,7 @@ public class Battle {
         turns();
     }
     //metodo que ejecuta la ronda i completa
-    private void roundn(int i) {
+    private void roundn(int i) throws IOException {
         newHoney();
         newMushroom();
         PlayersList.clear();
@@ -94,26 +103,25 @@ public class Battle {
     }
     //Se suben las stats de cada Player, y se dejan con la vida y Fp al maximo
     private void playersLevelUp() {
-        PMarco.setAtaque(PMarco.getAtaque() * 1.15);
-        PMarco.setDefensa(PLuis.getDefensa() * 1.15);
-        PMarco.setHPmax(PMarco.getHPmax() * 1.15);
-        PMarco.setHP(PMarco.getHPmax());
-        PMarco.setFPmax( (int) (PMarco.getFPmax() * 1.15) );
-        PMarco.setFPactual(PMarco.getFPmax());
-        PMarco.setNivel(PMarco.getNivel() + 1);
+        PMarco.getPlayer().setAtaque(PMarco.getPlayer().getAtaque() * 1.15);
+        PMarco.getPlayer().setDefensa(PLuis.getPlayer().getDefensa() * 1.15);
+        PMarco.getPlayer().setHP(PMarco.getPlayer().getHPmax());
+        PMarco.getPlayer().setFPmax( (int) (PMarco.getPlayer().getFPmax() * 1.15) );
+        PMarco.getPlayer().setFPactual(PMarco.getPlayer().getFPmax());
+        PMarco.getPlayer().setNivel(PMarco.getPlayer().getNivel() + 1);
 
-        PLuis.setAtaque(PLuis.getAtaque() * 1.15);
-        PLuis.setDefensa(PLuis.getDefensa() * 1.15);
-        PLuis.setHPmax(PLuis.getHPmax() * 1.15);
-        PLuis.setHP(PLuis.getHPmax());
-        PLuis.setFPmax( (int) (PLuis.getFPmax() * 1.15) );
-        PLuis.setFPactual(PLuis.getFPmax());
-        PLuis.setNivel(PLuis.getNivel() + 1);
+        PLuis.getPlayer().setAtaque(PLuis.getPlayer().getAtaque() * 1.15);
+        PLuis.getPlayer().setDefensa(PLuis.getPlayer().getDefensa() * 1.15);
+        PLuis.getPlayer().setHPmax(PLuis.getPlayer().getHPmax() * 1.15);
+        PLuis.getPlayer().setHP(PLuis.getPlayer().getHPmax());
+        PLuis.getPlayer().setFPmax( (int) (PLuis.getPlayer().getFPmax() * 1.15) );
+        PLuis.getPlayer().setFPactual(PLuis.getPlayer().getFPmax());
+        PLuis.getPlayer().setNivel(PLuis.getPlayer().getNivel() + 1);
 
     }
 
     //Metodo que para hacer el cambio a la siguiente ronda una vez esta esta finalizada y no se ha perdido.
-    private void round_over() {
+    private void round_over() throws IOException {
         if (Round<=4) {
             Round++;
             start_newRound();
@@ -122,20 +130,26 @@ public class Battle {
     }
 
     private void win() {
+        Win = true;
+        ItOver = true;
     }
     private void gameover() {
+        ItOver = true;
     }
 
-    private void pturns(Ipersonaje p1) {
+    private void pturns(PlayerIn player) throws IOException {
+        player.turn(this);
+
+
     }
     //metodo para ejecutar un turno de un enemigo. (Solo ataque a un jugador)
     private void eturn(Ienemy ienemy){
         if (ienemy != null) {
             Random aleatorio = new Random();
             int pj = aleatorio.nextInt(PlayersList.size());
-            ienemy.ataque(PlayersList.get(pj));
+            ienemy.ataque(PlayersList.get(pj).getPlayer());
 
-            if (PlayersList.get(pj).isKO()) {
+            if (PlayersList.get(pj).getPlayer().isKO()) {
                 PlayersList.get(pj).deletePList(PlayersList);
             }
         }
@@ -145,17 +159,12 @@ public class Battle {
     public boolean players_isKO(){
         return (PlayersList.size() == 0);
     }
+
     //metodo para revisar si todos los enemigos estan ko
     public boolean enemys_isKO(){
         return (EnemyList.size() == 0);
     }
 
-    //metodo que remueve a un player de PlayersList luego de que este esté ko
-    private void ko_remove(Ipersonaje p1){
-        if (p1.isKO()){
-            p1.deletePList(PlayersList);
-        }
-    }
     //metodo que remueve a un enemy de EnemyList luego de que este esté ko
     private void ko_remove(Ienemy e1){
         if (e1.isKO()){
@@ -163,12 +172,25 @@ public class Battle {
         }
     }
 
+    //metodo para ejecutar un ataque de PlayerIn con sus respectivas consecuencias
+    public void playerAttack(PlayerIn player, int i, AttackType at){
+        player.getPlayer().ataque(EnemyList.get(i), at);
 
-    private void turns(){
+        ko_remove(EnemyList.get(i));
+        if (player.getPlayer().isKO()){
+            player.deletePList(PlayersList);
+        }
+    }
+    public void playerUseItem(PlayerIn player, int i){
+        Baul.get(i).use(player.getPlayer());
+        Baul.get(i).deleteBaul(Baul);
+    }
 
+    //metodo que distribuye los turnos en cada ronda para las batallas
+    private void turns() throws IOException {
         do{
-            for (Ipersonaje ipersonaje : PlayersList) {
-                pturns(ipersonaje);
+            for (PlayerIn player : PlayersList) {
+                pturns(player);
             }
             for (Ienemy ienemy : EnemyList) {
                 eturn(ienemy);
@@ -177,6 +199,6 @@ public class Battle {
 
         if(players_isKO()) {gameover();}
 
-        if(enemys_isKO()) {round_over();}
+        else if(enemys_isKO()) {round_over();}
     }
 }
