@@ -4,12 +4,12 @@
 Este proyecto trata de crea un clon simplifacado del combate de los
 de la saga Mario and Luigi desarrollado por AphaDream Corporation. 
 
-Dentro del paquete personaje, tenemos el paquete abstract_clases en donde 
+Dentro del paquete aventurasMarcoyLuis, tenemos el paquete abstract_clases en donde 
 se encuentran 3 clases abstractas, descritas a continuación. AbstractPersonaje
 el cual es la clase padre de todos los personajes creados tanto enemigos como 
 personajes principales (players), clase que tiene como variables las 
-estadisticas de cada personaje y métodos para poder manejar estas mismas.
-Además posee el método isKO() que entrega un Boolean que indica si el personaje 
+estadisticas de cada aventurasMarcoyLuis y métodos para poder manejar estas mismas.
+Además posee el método isKO() que entrega un Boolean que indica si el aventurasMarcoyLuis 
 esta con 0 de vida o no. 
 
 Además tenemos AbstractEnemy y AbstractPlayer que extienden la clase 
@@ -22,12 +22,12 @@ Poseemos además el paquete interfaces donde se encuetran creadas dos interfaces
 ipersonajes y ienemy implementadas por AbstractPlayers y AbstractEnemy
 respectivamente, que son usados por el momento para definir metodos para 
 el ataque entre personajes y también poder llamar a todos los enemigos y players 
-en funciones sin tener que especificar el personaje puntual. 
+en funciones sin tener que especificar el aventurasMarcoyLuis puntual. 
 
 Se hace por el momento solo un enum de tipos de items y ataques en 
 Items y AttackType respectivamente. 
 
-Finalmente se encuentran las clases que hacen referencia a cada personaje en 
+Finalmente se encuentran las clases que hacen referencia a cada aventurasMarcoyLuis en 
 particular. Luis y Marco que son los personajes principales y extienden 
 la clase AbstractPlayers. Boo, Goomba y Spiny enemigos que extienden la 
 clase AbstractEnemy. A cada uno de estos se le dan estadísticas propias en 
