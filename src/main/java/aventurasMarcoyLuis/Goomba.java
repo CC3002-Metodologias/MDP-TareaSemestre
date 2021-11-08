@@ -7,7 +7,8 @@ import aventurasMarcoyLuis.interfaces.Ipersonaje;
 public class Goomba extends AbstractEnemy {
     //Constructor de la clase, usa el mismo de AbstractEnemy
     public Goomba(){
-        super( 1, 2, 4, 7);
+        super( 1, 2, 2, 7);
+        setName("Goomba");
     }
 
     @Override

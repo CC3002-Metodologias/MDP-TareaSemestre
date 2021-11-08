@@ -1,16 +1,27 @@
 package aventurasMarcoyLuis.abstract_clases;
 
-//personaje base, tanto enemigos como players
+/**
+ * personaje base, tanto enemigos como players
+ */
 public abstract class AbstractPersonaje {
 
     //Se crean las variables correspondientes a los atributos de cada personaje
-    private int Nivel;
-    private double Ataque;
-    private double Defensa;
-    private double HPmax;
-    private double HPactual; //No puede ser mayor a HPmax ni menor a 0
 
-    //Constructor base
+    /** Variable entera que referencia al nivel de un personaje */
+    private int Nivel;
+    /** Variable tipo double que referencia el atributo de Ataque de un personaje */
+    private double Ataque;
+    /** Variable tipo double que referencia el atributo de Defensa de un personaje */
+    private double Defensa;
+    /** Variable tipo double que referencia el atributo de HPmax de un personaje */
+    private double HPmax;
+    /** Variable tipo double que referencia el atributo de HPactual de un personaje,
+     * No puede ser mayor a HPmax ni menor a 0 */
+    private double HPactual;
+    /** Variable que se ocupa para guardar el tipo de personaje que es en formato String */
+    private String Name;
+
+    /** Constructor base */
     public AbstractPersonaje(int nivel, double ataque, double defensa, double hpmax){
         this.Ataque = ataque;
         this.Defensa = defensa;
@@ -25,6 +36,7 @@ public abstract class AbstractPersonaje {
     public double getHPactual() {return HPactual;}
     public double getHPmax() {return HPmax;}
     public int getNivel() {return Nivel;}
+    public String getName(){return Name;}
 
     //Metodos para setear los atributos de los personajes
 
@@ -51,6 +63,13 @@ public abstract class AbstractPersonaje {
         }
     }
 
+    /**
+     * metodo para setear el parametro Name, que guarda el nombre del tipo en formato String
+     * @param name
+     */
+    public void setName(String name){
+        Name = name;
+    }
 
     //Metodo para saber si un personaje esta derrotado
     public boolean isKO(){
@@ -58,6 +77,10 @@ public abstract class AbstractPersonaje {
     }
 
 
+    /**
+     * Metodo que se ocupa de reducir el HpActual segun el daño recibido
+     * @param daño
+     */
     public void receiveDamage(double daño){
         double hpa = getHPactual();
         setHP(hpa-daño);

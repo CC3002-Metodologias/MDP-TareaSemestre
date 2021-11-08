@@ -6,24 +6,33 @@ import aventurasMarcoyLuis.interfaces.Ipersonaje;
 
 import java.util.List;
 
-//Se crea la clase abstracta de Player con todos los metodos y variables en comun que comparten Luis y Carlos (posibles personajes a usar)
+/**
+ * Se crea la clase abstracta de Player con todos los metodos y variables en comun que comparten
+ * Luis y Carlos (posibles personajes a usar).
+ */
 public abstract class AbstractPlayer extends AbstractPersonaje implements Ipersonaje {
 
-    private int FPmax; //FP exclusivo de Player (Marco o Luis por el momento)
-    private int FPactual; //FP actual del jugador, No puede ser mayor al FP Max ni menor a 0
+    /** FP exclusivo de Player (Marco o Luis por el momento) */
+    private int FPmax;
+    /** FP actual del jugador, No puede ser mayor al FP Max ni menor a 0 */
+    private int FPactual;
 
-
-    //Constructor que usa el mismo que AbstractPersonaje, pero se agrega la varible FP
+    /**
+     * Constructor que usa el mismo que AbstractPersonaje, pero se agrega la varible FP
+     */
     public AbstractPlayer(int nivel, double ataque, double defensa, double hpmax, int fp){
         super(nivel,ataque,defensa,hpmax);
         this.FPmax = fp;
         this.FPactual = fp;
     }
 
-    //Metodos para saber el valor de FP y tambien poder setearla
+    @Override
     public int getFPmax() {return this.FPmax;}
+    /** metodo para obtener el FpActual */
     public int getFPactual() { return FPactual; }
+    @Override
     public void setFPmax(int FPmax) {this.FPmax = FPmax;}
+    @Override
     public void setFPactual(int NewFp) {
         if (NewFp > FPmax){
             this.FPactual = FPmax;
@@ -35,7 +44,7 @@ public abstract class AbstractPlayer extends AbstractPersonaje implements Iperso
     }
 
 
-    //Metodo para usar un item de tipo Star
+    /** Metodo para usar un item de tipo Star */
     public void useStar(){
         //invisible
     }
@@ -64,8 +73,11 @@ public abstract class AbstractPlayer extends AbstractPersonaje implements Iperso
             attack(e1, t1);
         }
     }
-    //Metodo que da las instrucciones de que hacer en caso de hacer atacado, esto según los personajes involucrados por lo cual-
-    //solo se deja la firma, ya que en la clase de cada personaje se define instrucciones diferentes segun el caso.
+
+    /**
+     * Metodo que da las instrucciones de que hacer en caso de hacer atacado, esto según los personajes involucrados por lo cual-
+     * solo se deja la firma, ya que en la clase de cada personaje se define instrucciones diferentes segun el caso.
+     */
     protected abstract void attack(Ienemy p1, AttackType attackType);
 
     @Override

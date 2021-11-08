@@ -7,7 +7,8 @@ public class Luis extends AbstractPlayer {
 
     //Constructor de clase del personaje Marco
     public Luis(){
-        super(1, 2, 1.5, 20, 50);
+        super(1, 15, 1.5, 20, 25);
+        setName("Luis");
     }
 
     @Override

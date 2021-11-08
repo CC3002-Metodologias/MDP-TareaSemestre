@@ -4,6 +4,7 @@
 Este proyecto trata de crea un clon simplifacado del combate de los
 de la saga Mario and Luigi desarrollado por AphaDream Corporation. 
 
+### Modelo
 Dentro del paquete aventurasMarcoyLuis, tenemos el paquete abstract_clases en donde 
 se encuentran 3 clases abstractas, descritas a continuación. AbstractPersonaje
 el cual es la clase padre de todos los personajes creados tanto enemigos como 
@@ -33,7 +34,5 @@ la clase AbstractPlayers. Boo, Goomba y Spiny enemigos que extienden la
 clase AbstractEnemy. A cada uno de estos se le dan estadísticas propias en 
 las variables de su clase. 
 
-Dentro de la carpeta test tenemos 2 clases, TestEnemy y TestPlayer. En cada 
-una de estas se hacen los test de todos los personajes creados separados en 
-enemigos y players. Además se encuentra TestAttack que testea las dinamicas de ataques entre Ienemys e
-Iplayers funcionen correctamente. 
+
+

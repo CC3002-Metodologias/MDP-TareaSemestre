@@ -6,7 +6,8 @@ import aventurasMarcoyLuis.interfaces.Ipersonaje;
 public class Spiny extends AbstractEnemy {
     //Constructor de la clase, usa el mismo de AbstractEnemy
     public Spiny(){
-        super(2, 1, 3, 15);
+        super(2, 1, 3, 5);
+        setName("Spiny");
     }
 
     @Override

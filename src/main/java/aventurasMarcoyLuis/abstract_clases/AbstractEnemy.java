@@ -4,8 +4,11 @@ import aventurasMarcoyLuis.interfaces.Ienemy;
 import aventurasMarcoyLuis.interfaces.Ipersonaje;
 
 import java.util.List;
+import java.util.Random;
 
 public abstract class  AbstractEnemy extends AbstractPersonaje implements Ienemy {
+
+    private Random random = new Random();
 
     //Constructor base
     public AbstractEnemy(int nivel, double ataque, double defensa, double hpmax) {
@@ -26,8 +29,8 @@ public abstract class  AbstractEnemy extends AbstractPersonaje implements Ienemy
 
     @Override
     public void atacadoporMartillo(Ipersonaje p1) {
-        double azar = Math.random() * 10;
-        if (azar >= 2.5) {
+        double azar = random.nextInt(4);
+        if (azar >= 1) {
             double daño = 1.5 * p1.getAtaque() * (p1.getNivel() / this.getDefensa());
             this.receiveDamage(daño);
         }
@@ -42,6 +45,11 @@ public abstract class  AbstractEnemy extends AbstractPersonaje implements Ienemy
     @Override
     public void deleteEList(List<Ienemy> ienemyList) {
         ienemyList.remove(this);
+    }
+
+    @Override
+    public void setSeed(long seed){
+        random.setSeed(seed);
     }
 }
 
