@@ -1,9 +1,9 @@
 package aventurasMarcoyLuis.interfaces;
 
 import aventurasMarcoyLuis.AttackType;
-import aventurasMarcoyLuis.Boo;
-import aventurasMarcoyLuis.Goomba;
-import aventurasMarcoyLuis.Spiny;
+import aventurasMarcoyLuis.personajes.Boo;
+import aventurasMarcoyLuis.personajes.Goomba;
+import aventurasMarcoyLuis.personajes.Spiny;
 
 import java.util.List;
 

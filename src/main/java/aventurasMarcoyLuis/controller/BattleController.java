@@ -4,11 +4,13 @@ import aventurasMarcoyLuis.*;
 import aventurasMarcoyLuis.Items.HoneySyrup;
 import aventurasMarcoyLuis.Items.RedMushroom;
 import aventurasMarcoyLuis.interfaces.Ienemy;
-import aventurasMarcoyLuis.interfaces.Ipersonaje;
 import aventurasMarcoyLuis.interfaces.Items;
+import aventurasMarcoyLuis.personajes.Boo;
+import aventurasMarcoyLuis.personajes.Goomba;
+import aventurasMarcoyLuis.personajes.Spiny;
 
 import java.io.IOException;
-import java.net.Proxy;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -61,6 +63,10 @@ public class BattleController {
      */
     private Random random2 = new Random();
 
+    /**
+     * Para printear o no
+     */
+    private PrintStream out = System.out;
     /**
      * Constructor de Battle que inicializa las variables para que puedan ser usadas
      * @param playerMarco
@@ -192,8 +198,8 @@ public class BattleController {
     private void round_over() throws IOException {
         if (Round<=4) {
             Round++;
-            System.out.println("You win round");
-            System.out.println("Welcome to the round " + Round);
+            out.println("You win round");
+            out.println("Welcome to the round " + Round);
             start_newRound();
         }
         else{win();}
@@ -204,7 +210,7 @@ public class BattleController {
      * Termina el juego cambiando la variable ItOver pero ademas cambia la var Win a true
      */
     private void win() {
-        System.out.println("You win the Battle");
+        out.println("You win the Battle");
         Win = true;
         ItOver = true;
     }
@@ -213,7 +219,7 @@ public class BattleController {
      * Termina el juego cambiando la variable ItOver
      */
     private void gameover() {
-        System.out.println("You Lost");
+        out.println("You Lost");
         ItOver = true;
     }
 
@@ -224,15 +230,15 @@ public class BattleController {
      */
     private void pturns(PlayerIn player) throws IOException {
 
-        System.out.println("Player "+ player.getPlayer().getName());
+        out.println("Player "+ player.getPlayer().getName());
         for(int j=0; j < Baul.size(); j++){
-            System.out.print(j + "= " + Baul.get(j).getName() + ", ");
+            out.print(j + "= " + Baul.get(j).getName() + ", ");
         }
-        System.out.print("\n");
+        out.print("\n");
         for(int j=0; j < EnemyList.size(); j++){
-            System.out.print(j + "= "+ EnemyList.get(j).getName() + " HP="+EnemyList.get(j).getHPactual()+", ");
+            out.print(j + "= "+ EnemyList.get(j).getName() + " HP="+EnemyList.get(j).getHPactual()+", ");
         }
-        System.out.print("\n");
+        out.print("\n");
 
         player.turn(this);
     }
@@ -246,12 +252,12 @@ public class BattleController {
             PlayerIn PlayerAtacado = PlayersList.get(pj);
 
             ienemy.ataque(PlayerAtacado.getPlayer());
-            System.out.println(ienemy.getName()+ " ataca a "+ PlayerAtacado.getPlayer().getName()
+            out.println(ienemy.getName()+ " ataca a "+ PlayerAtacado.getPlayer().getName()
                     + " con HP=" + PlayerAtacado.getPlayer().getHPactual());
 
             if (PlayerAtacado.getPlayer().isKO()) {
                 PlayerAtacado.deletePList(PlayersList);
-                System.out.println("Jugador"+ PlayerAtacado.getPlayer().getName()+ "esta KO");
+                out.println("Jugador"+ PlayerAtacado.getPlayer().getName()+ "esta KO");
             }
         }
     }
@@ -329,6 +335,7 @@ public class BattleController {
         }
     }
 
+
     /**
      * Metodo que dice si la batalla ha terminado o no
      * @return Bool
@@ -387,5 +394,13 @@ public class BattleController {
      */
     public boolean isWin(){
         return Win;
+    }
+
+    /**
+     * Para cambiar la variable out.
+     * Útil para colocar  new PrintStream(new NullOutputStream()) y así no printear.
+     */
+    public void setOut(PrintStream printStream){
+        out = printStream;
     }
 }

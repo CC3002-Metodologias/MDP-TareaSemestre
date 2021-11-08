@@ -3,14 +3,18 @@ package aventurasMarcoyLuis;
 import aventurasMarcoyLuis.Items.HoneySyrup;
 import aventurasMarcoyLuis.Items.RedMushroom;
 import aventurasMarcoyLuis.controller.BattleController;
+import aventurasMarcoyLuis.controller.NullOutputStream;
 import aventurasMarcoyLuis.controller.PlayerIn;
 import aventurasMarcoyLuis.interfaces.Items;
+import aventurasMarcoyLuis.personajes.Luis;
+import aventurasMarcoyLuis.personajes.Marco;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class TestController {
@@ -37,6 +41,7 @@ public class TestController {
         pMarco = new PlayerIn(marco);
         pLuis = new PlayerIn(luis);
         battleController = new BattleController(pMarco, pLuis);
+        battleController.setOut( new PrintStream(new NullOutputStream()));
         Items honey = new HoneySyrup();
         Items rMushroom = new RedMushroom();
 
@@ -68,6 +73,7 @@ public class TestController {
         pMarco = new PlayerIn(marco, "P\nI3\n");
 
         BattleController battleController = new BattleController(pMarco, pLuis);
+        battleController.setOut( new PrintStream(new NullOutputStream()));
         battleController.round1();
 
         //revisamos que el turno inicial sea de Marco
@@ -115,6 +121,7 @@ public class TestController {
         double nvlLuis0 = luis.getNivel();
 
         BattleController battleController = new BattleController(pMarco, pLuis);
+        battleController.setOut( new PrintStream(new NullOutputStream()));
         battleController.setSeeds(55,23);
         battleController.round1();
         //con esta semilla se crean 3 enemigos al azar de tipo Goomba
@@ -154,6 +161,7 @@ public class TestController {
         pMarco = new PlayerIn(marco, "AS1\nAS0\nAS0\nAM0\nAS1\nAS3\nAS1\nAS1\nAS0\nAM0\nAS2\nAS1\nAM1");
 
         BattleController battleController = new BattleController(pMarco, pLuis);
+        battleController.setOut( new PrintStream(new NullOutputStream()));
         battleController.setSeeds(55,23);
         battleController.round1();
 

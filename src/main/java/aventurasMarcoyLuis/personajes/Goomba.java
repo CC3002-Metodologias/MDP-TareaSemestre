@@ -1,13 +1,15 @@
-package aventurasMarcoyLuis;
+package aventurasMarcoyLuis.personajes;
 
+import aventurasMarcoyLuis.AttackType;
 import aventurasMarcoyLuis.abstract_clases.AbstractEnemy;
 import aventurasMarcoyLuis.interfaces.Ipersonaje;
 
-public class Spiny extends AbstractEnemy {
+//Clase del enemigo Goomba
+public class Goomba extends AbstractEnemy {
     //Constructor de la clase, usa el mismo de AbstractEnemy
-    public Spiny(){
-        super(2, 1, 3, 5);
-        setName("Spiny");
+    public Goomba(){
+        super( 1, 2, 2, 7);
+        setName("Goomba");
     }
 
     @Override
@@ -16,7 +18,7 @@ public class Spiny extends AbstractEnemy {
             atacadoporMartillo(p1);
         }
         else if (t1 == AttackType.SALTO){
-            p1.pinchado();
+            atacadoporSalto(p1);
         }
     }
     @Override
@@ -25,12 +27,12 @@ public class Spiny extends AbstractEnemy {
             atacadoporMartillo(p1);
         }
         else if (t1 == AttackType.SALTO){
-            p1.pinchado();
+            atacadoporSalto(p1);
         }
     }
 
     @Override
     public void attack(Ipersonaje p1) {
-        p1.siendoAtacadoporSpiny(this);
+        p1.siendoAtacadoporGoomba(this);
     }
 }

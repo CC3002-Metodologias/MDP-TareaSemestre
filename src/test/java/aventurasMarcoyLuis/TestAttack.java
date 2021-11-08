@@ -1,4 +1,5 @@
 package aventurasMarcoyLuis;
+import aventurasMarcoyLuis.personajes.*;
 import org.junit.jupiter.api.*;
 
 public class TestAttack {
@@ -16,6 +17,8 @@ public class TestAttack {
         tSpiny = new Spiny();
         tMarco = new Marco();
         tLuis = new Luis();
+        tMarco.setAtaque(5);
+        tLuis.setAtaque(7);
     }
 
     @Test
@@ -66,12 +69,6 @@ public class TestAttack {
         //tMarco uso 1 FP.
         Assertions.assertEquals(tMarco.getFPactual(), tMarco.getFPmax() - 1);
 
-        //tLuis ataca a tGoomba con salto por lo que debería dañar a tGoomba
-        tLuis.ataque(tGoomba, AttackType.SALTO);
-        Assertions.assertEquals(tGoomba.getHPactual(), tGoomba.getHPmax() -
-                tLuis.getAtaque() * (tLuis.getNivel() / tGoomba.getDefensa()));
-        //tLuis uso 1 FP.
-        Assertions.assertEquals(tLuis.getFPactual(), tLuis.getFPmax() - 3);
 
         //tMarco ataca a tGoomba con martillo por lo que debería ser dañar a tGoomba si es que no tiene mala suerte(75% prob).
         double hpGoomba = tGoomba.getHPactual();
@@ -94,7 +91,7 @@ public class TestAttack {
         Assertions.assertEquals(tSpiny.getHPactual(), hpSpiny);
         Assertions.assertEquals(tLuis.getHPactual(), tLuis.getHPmax() * 0.95);
         //tLuis uso 1 FP.
-        Assertions.assertEquals(tLuis.getFPactual(), tLuis.getFPmax() - 4);
+        Assertions.assertEquals(tLuis.getFPactual(), tLuis.getFPmax() - 3);
 
         //se baja la vida a tMarco a 0, entonces este esta KO.
         tMarco.setHP(0);

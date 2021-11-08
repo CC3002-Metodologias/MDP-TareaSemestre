@@ -1,4 +1,7 @@
 package aventurasMarcoyLuis;
+import aventurasMarcoyLuis.personajes.Boo;
+import aventurasMarcoyLuis.personajes.Goomba;
+import aventurasMarcoyLuis.personajes.Spiny;
 import org.junit.jupiter.api.*;
 
 //Clase para testear los enemigos
@@ -32,33 +35,6 @@ public class TestEnemy {
         System.out.println(testSpiny.getHPmax());
     }
 
-    @Test
-    public void setsTest(){
-        //Primero comprobamos que todos los enemigos esten con sus variables correctamente
-        Assertions.assertEquals(testBoo.getAtaque(), 4);
-        Assertions.assertEquals(testGoomba.getDefensa(), 4);
-        Assertions.assertEquals(testSpiny.getNivel(), 2);
-        Assertions.assertEquals(testBoo.getHPactual(), 5);
-        Assertions.assertEquals(testGoomba.getHPmax(), 7);
-
-        //Ahora usamos el metodo set para cambiar los valores de las diferentes variables
-        testBoo.setAtaque(3);
-        testGoomba.setDefensa(5);
-        testSpiny.setNivel(4);
-        testBoo.setHP(2);
-        testGoomba.setHPmax(10);
-        testGoomba.setHP(11); //Este set deberia dejar el HPactual en 10, ya que HPactual no puede ser mayor a HPmax
-
-        //Comprobamos que las variables que fueron cambiadas tengan los nuevos valores entregados
-        Assertions.assertEquals(testBoo.getAtaque(), 3);
-        Assertions.assertEquals(testGoomba.getDefensa(), 5);
-        Assertions.assertEquals(testSpiny.getNivel(), 4);
-        Assertions.assertEquals(testBoo.getHPactual(), 2);
-        Assertions.assertEquals(testGoomba.getHPmax(), 10);
-        Assertions.assertEquals(testGoomba.getHPactual(), 10); //Comprobamos que se cumpla que HPactual<=HPmax
-
-
-    }
 
     @Test
     public void isKO_Test(){

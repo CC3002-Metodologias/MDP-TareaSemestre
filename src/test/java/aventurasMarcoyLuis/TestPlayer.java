@@ -1,4 +1,6 @@
 package aventurasMarcoyLuis;
+import aventurasMarcoyLuis.personajes.Luis;
+import aventurasMarcoyLuis.personajes.Marco;
 import org.junit.jupiter.api.*;
 import aventurasMarcoyLuis.Items.HoneySyrup;
 import aventurasMarcoyLuis.Items.RedMushroom;
@@ -31,35 +33,6 @@ public class TestPlayer {
 
     }
 
-    @Test
-    public void setsTest(){
-        //Primero comprobamos que todos los players esten con sus variables correctamente
-        Assertions.assertEquals(testLuis.getAtaque(), 2);
-        Assertions.assertEquals(testMarco.getDefensa(), 5);
-        Assertions.assertEquals(testLuis.getNivel(), 1);
-        Assertions.assertEquals(testMarco.getHPactual(), 10);
-        Assertions.assertEquals(testLuis.getHPmax(), 20);
-        Assertions.assertEquals(testMarco.getFPmax(), 50);
-        Assertions.assertEquals(testLuis.getFPactual(), 50);
-
-        //Ahora usamos el metodo set para cambiar los valores de las diferentes variables
-        testLuis.setAtaque(3);
-        testMarco.setDefensa(5);
-        testLuis.setNivel(4);
-        testMarco.setHP(2);
-        testLuis.setHPmax(10);
-        testMarco.setFPmax(60);
-        testLuis.setFPactual(35);
-
-        //Comprobamos que las variables que fueron cambiadas tengan los nuevos valores entregados
-        Assertions.assertEquals(testLuis.getAtaque(), 3);
-        Assertions.assertEquals(testMarco.getDefensa(), 5);
-        Assertions.assertEquals(testLuis.getNivel(), 4);
-        Assertions.assertEquals(testMarco.getHPactual(), 2);
-        Assertions.assertEquals(testLuis.getHPmax(), 10);
-        Assertions.assertEquals(testMarco.getFPmax(), 60);
-        Assertions.assertEquals(testLuis.getFPactual(), 35);
-    }
 
     @Test
     public void isKO_Test(){
