@@ -107,11 +107,11 @@ public class GameController {
      * Constructor de Battle que inicializa las variables para que puedan ser usadas
      */
     public GameController(){
-        Baul = new ArrayList<Items>();
-        Players = new ArrayList<PlayerIn>();
-        EnemyList = new ArrayList<Ienemy>();
-        playerInList = new ArrayList<PlayerIn>();
-        playersList = new ArrayList<Iplayer>();
+        Baul = new ArrayList<>();
+        Players = new ArrayList<>();
+        EnemyList = new ArrayList<>();
+        playerInList = new ArrayList<>();
+        playersList = new ArrayList<>();
         Round = 1;
         Pturn = 0;
         ItOver = false;
@@ -479,10 +479,6 @@ public class GameController {
             phase.selectItem(player);
         } catch (InvalidOptionException | IOException | InvalidTransitionException | InvalidInputException e){
             e.printStackTrace();
-
-            if (e.getClass()== InvalidInputException.class) {
-                tryToSelectItem(player);
-            }
         }
     }
 

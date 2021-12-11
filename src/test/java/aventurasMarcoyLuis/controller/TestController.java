@@ -48,7 +48,7 @@ public class TestController {
 
 
         //Se crean los jugadores principales
-        pMarco = gameController.newLuisPlayer();
+        pMarco = gameController.newMarcoPlayer();
         pLuis = gameController.newLuisPlayer();
 
         //Revisamos la correcta creación de estos.
