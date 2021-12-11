@@ -1,18 +1,20 @@
 package aventurasMarcoyLuis.personajes;
 
 import aventurasMarcoyLuis.AttackType;
-import aventurasMarcoyLuis.abstract_clases.AbstractEnemy;
+import aventurasMarcoyLuis.Visitors.Visitor;
+import aventurasMarcoyLuis.interfaces.Iplayer;
+import aventurasMarcoyLuis.personajes.abstract_clases.AbstractEnemy;
 import aventurasMarcoyLuis.interfaces.Ipersonaje;
 
 public class Spiny extends AbstractEnemy {
     //Constructor de la clase, usa el mismo de AbstractEnemy
     public Spiny(){
-        super(2, 1, 3, 5);
+        super(2, 5, 2, 10);
         setName("Spiny");
     }
 
     @Override
-    public void siendoAtacadoLuis(Ipersonaje p1, AttackType t1) {
+    public void siendoAtacadoLuis(Iplayer p1, AttackType t1) {
         if(t1 == AttackType.MARTILLO){
             atacadoporMartillo(p1);
         }
@@ -21,7 +23,7 @@ public class Spiny extends AbstractEnemy {
         }
     }
     @Override
-    public void siendoAtacadoMarco(Ipersonaje p1, AttackType t1) {
+    public void siendoAtacadoMarco(Iplayer p1, AttackType t1) {
         if(t1 == AttackType.MARTILLO){
             atacadoporMartillo(p1);
         }
@@ -31,7 +33,12 @@ public class Spiny extends AbstractEnemy {
     }
 
     @Override
-    public void attack(Ipersonaje p1) {
+    public void attack(Iplayer p1) {
         p1.siendoAtacadoporSpiny(this);
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitSpiny(this);
     }
 }

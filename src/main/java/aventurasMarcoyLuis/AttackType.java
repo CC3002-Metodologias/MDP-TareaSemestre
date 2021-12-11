@@ -1,6 +1,8 @@
 package aventurasMarcoyLuis;
 
-//Tipos de ataque
+/**
+ * Tipos de ataque
+ */
 public enum AttackType {
     MARTILLO, SALTO
 }

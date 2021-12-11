@@ -1,6 +1,7 @@
 package aventurasMarcoyLuis.Items;
 
 import aventurasMarcoyLuis.interfaces.Ipersonaje;
+import aventurasMarcoyLuis.interfaces.Iplayer;
 import aventurasMarcoyLuis.interfaces.Items;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class RedMushroom implements Items {
         Name = "RedMushroom";
     }
     @Override
-    public void use(Ipersonaje p1){
+    public void use(Iplayer p1){
         p1.useRedMushroom();
     }
     @Override
