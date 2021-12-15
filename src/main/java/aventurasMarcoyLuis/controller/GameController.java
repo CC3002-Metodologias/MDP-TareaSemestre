@@ -1,8 +1,6 @@
 package aventurasMarcoyLuis.controller;
 
-import aventurasMarcoyLuis.AttackType;
-import aventurasMarcoyLuis.Items.HoneySyrup;
-import aventurasMarcoyLuis.Items.RedMushroom;
+import aventurasMarcoyLuis.model.*;
 import aventurasMarcoyLuis.controller.observers.Iobserver;
 import aventurasMarcoyLuis.controller.observers.LostObserver;
 import aventurasMarcoyLuis.controller.observers.WinObserver;
@@ -11,7 +9,9 @@ import aventurasMarcoyLuis.interfaces.Ienemy;
 import aventurasMarcoyLuis.interfaces.Ipersonaje;
 import aventurasMarcoyLuis.interfaces.Iplayer;
 import aventurasMarcoyLuis.interfaces.Items;
-import aventurasMarcoyLuis.personajes.*;
+import aventurasMarcoyLuis.model.Items.HoneySyrup;
+import aventurasMarcoyLuis.model.Items.RedMushroom;
+import aventurasMarcoyLuis.model.personajes.*;
 
 
 import java.beans.PropertyChangeSupport;
@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Clase para controlar todos los aspectos de un partida y con métodos para poder manejar y obtener información de esta.
+ * Funciona como intermediaria entre el modelo y la vista.
+ */
 public class GameController {
 
     /**
@@ -34,9 +38,9 @@ public class GameController {
     /**
      * Lista de jugadores activos(PlayerIn) en la ronda
      */
-    private List<PlayerIn> playerInList;
+    private List<PlayerIn> playerInTurns;
     /**
-     * Lista de personajes principales(Ipersonaje) activos en la ronda, los que controla los PlayerIn de playerInList
+     * Lista de personajes principales(Ipersonaje) activos en la ronda, los que controla los PlayerIn de playerInTurns
      */
     private List<Iplayer> playersList;
     /**
@@ -110,7 +114,7 @@ public class GameController {
         Baul = new ArrayList<>();
         Players = new ArrayList<>();
         EnemyList = new ArrayList<>();
-        playerInList = new ArrayList<>();
+        playerInTurns = new ArrayList<>();
         playersList = new ArrayList<>();
         Round = 1;
         Pturn = 0;
@@ -148,19 +152,19 @@ public class GameController {
     }
 
     /**
-     * Añade un PlayerIn a la lista de playerInList para que sea considerado en los turnos de ronda
+     * Añade un PlayerIn a la lista de playerInTurns para que sea considerado en los turnos de ronda
      */
     public void addPlayerInToRound(PlayerIn playerIn){
-        playerInList.add(playerIn);
+        playerInTurns.add(playerIn);
         playersList.add(playerIn.getPlayer());
     }
 
     /**
-     * Elimina la Ipersonaje de playerList y su controlador playerIn de playerInList, para ya no ser considerado activo en la ronda.
+     * Elimina la Ipersonaje de playerList y su controlador playerIn de playerInTurns, para ya no ser considerado activo en la ronda.
      */
     public void removePlayerRound(Iplayer iplayer){
         playersList.remove(iplayer);
-        playerInList.remove(iplayer.getPlayerIn());
+        playerInTurns.remove(iplayer.getPlayerIn());
     }
 
     //Metodos utilies para transiciones entre rondas y setear estas.
@@ -268,7 +272,7 @@ public class GameController {
     private void roundn(int i){
         newHoney();
         newMushroom();
-        playerInList.clear();
+        playerInTurns.clear();
         playersList.clear();
         playersLevelUp();
         for(PlayerIn player: Players){
@@ -304,7 +308,7 @@ public class GameController {
      * metodo para revisar si todos los players estan ko
      */
     private boolean players_isKO(){
-        return (playerInList.size() == 0);
+        return (playerInTurns.size() == 0);
     }
 
     /**
@@ -381,7 +385,7 @@ public class GameController {
      * @param player
      * @param i
      */
-    public void playerUseItem(PlayerIn player, int i) throws InvalidTransitionException {
+    public void playerUseItem(PlayerIn player, int i) {
         Baul.get(i).use(player.getPlayer());
         Baul.get(i).deleteBaul(Baul);
     }
@@ -411,6 +415,24 @@ public class GameController {
         }
     }
 
+    public void tryToAttack(PlayerIn player, int i, AttackType at){
+        try {
+            phase.toAttackingPhase(player);
+            phase.attack(player, i, at);
+        } catch (InvalidAttackException | InvalidOptionException | InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToUseItem(PlayerIn player, int i){
+        try {
+            phase.toUsingItemPhase(player);
+            phase.useItem(player, i);
+        } catch (InvalidOptionException | InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
     /**
      * jugador seleciona una acción
      * @param player
@@ -418,7 +440,7 @@ public class GameController {
      * @throws IOException
      * @throws InvalidInputException Si el input ingresado no corresponde a una opcion válida
      */
-    public void selectAction(PlayerIn player) throws InvalidTransitionException, IOException, InvalidInputException {
+    public void selectAction(PlayerIn player) throws IOException, InvalidInputException {
         player.selectAction(this);
 
     }
@@ -429,8 +451,9 @@ public class GameController {
      */
     public void tryToSelectAttack(PlayerIn player) {
         try {
+            phase.toSetAttackPhase(player);
             phase.chooseAttack(player);
-        } catch (InvalidOptionException | IOException | InvalidInputException e) {
+        } catch (InvalidOptionException | IOException | InvalidInputException | InvalidTransitionException e) {
             e.printStackTrace();
         }
     }
@@ -476,6 +499,7 @@ public class GameController {
      */
     public void tryToSelectItem(PlayerIn player) {
         try {
+            phase.toChoosingItemPhase(player);
             phase.selectItem(player);
         } catch (InvalidOptionException | IOException | InvalidTransitionException | InvalidInputException e){
             e.printStackTrace();
@@ -509,6 +533,7 @@ public class GameController {
      */
     public void tryToEndTurn(){
         try{
+            phase.toEndTurnPhase();
             phase.endTurn();
         } catch (InvalidOptionException | InvalidTransitionException e){
             e.printStackTrace();
@@ -529,7 +554,7 @@ public class GameController {
             tryToRunEnemiesTurn();
         }
         //Caso en el que el jugador(PlayerIn) que le tocaria el turno esta KO, por lo que hay que saltarlo.
-        else if (!playerInList.contains(ownerTurn)){
+        else if (!playerInTurns.contains(ownerTurn)){
             changeTurn();
         }
         else phase.toChoosingActionPhase();
@@ -602,7 +627,6 @@ public class GameController {
             eturn(e);
         }
         if (notOver()) {
-            phase.toEndTurnPhase();
             tryToEndTurn();
         }
 
@@ -639,10 +663,10 @@ public class GameController {
     }
 
     /**
-     * Metodo para retornar playerInList, que usamos para probar test
+     * Metodo para retornar playerInTurns, que usamos para probar test
      */
-    public List<PlayerIn> getPlayerInList() {
-        return playerInList;
+    public List<PlayerIn> getPlayerInTurns() {
+        return playerInTurns;
     }
 
     /**

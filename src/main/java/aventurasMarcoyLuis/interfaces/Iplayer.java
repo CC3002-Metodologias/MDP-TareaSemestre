@@ -1,10 +1,10 @@
 package aventurasMarcoyLuis.interfaces;
 
-import aventurasMarcoyLuis.AttackType;
+import aventurasMarcoyLuis.model.AttackType;
 import aventurasMarcoyLuis.controller.PlayerIn;
-import aventurasMarcoyLuis.personajes.Boo;
-import aventurasMarcoyLuis.personajes.Goomba;
-import aventurasMarcoyLuis.personajes.Spiny;
+import aventurasMarcoyLuis.model.personajes.Boo;
+import aventurasMarcoyLuis.model.personajes.Goomba;
+import aventurasMarcoyLuis.model.personajes.Spiny;
 import aventurasMarcoyLuis.controller.phasesAndExceptions.InvalidAttackException;
 
 

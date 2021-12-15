@@ -10,8 +10,6 @@ se encuentran 3 clases abstractas, descritas a continuación. AbstractPersonaje
 el cual es la clase padre de todos los personajes creados tanto enemigos como 
 personajes principales (players), clase que tiene como variables las 
 estadisticas de cada aventurasMarcoyLuis y métodos para poder manejar estas mismas.
-Además posee el método isKO() que entrega un Boolean que indica si el aventurasMarcoyLuis 
-esta con 0 de vida o no. 
 
 Además tenemos AbstractEnemy y AbstractPlayer que extienden la clase 
 AbstractPersonaje y se usan para definir comportamientos y métodos en común
@@ -36,15 +34,56 @@ las variables de su clase.
 
 AttackType que es un enum de los dos tipos de ataques que existen.
 
-Finalmente el paquete controller donde esta el contrador de una Batalla BattleController 
-la cual está encargada
-de poseer todos los métodos necesarios para poder ejecutar y controlar un partida y batalla.
-Tambien la clase PlayerIn que se ocupa para guardar un player y su entrada para hacer las 
-intereccaciones en la batalla y poder elejir acciones. GameController que simplemente ejecuta
-una batalla completa llamando al método update de BattleController. 
+
+### Controlador
+
+El controlador esta divido en 2 clases: 
+
+-GameController: controla todos los aspectos del juego en general. Este puede crear Items y 
+personajes, realizar una batalla, controlar los turnos, obtener información relevante en la 
+partida y llamar a realizar las acciones de los personajes principales. Además cuenta con 
+diversas variables como un Baúl de objetos, listas de personajes en una ronda, lista de 
+PlayerIn's en el juego, una Fase, Observadores, y diversas variables que indican información 
+acerca de la partida. 
+
+-PlayerIn: controla a un personaje principal (Iplayer). Este puede hacer toma de decisiones 
+para elegir una acción a realizar, elegir un item, un tipo de ataque y una victima dentro de una 
+lista de enemigos. Permite recibir un Input en formato de String para que el usuario interactue.
 
 Además dentro de este último paquete se crea la clase NullOutputStream para en los tests no
-printear nada aunque se llame a print. 
+printear nada aunque se llame a print.
+
+### Fases y exepciones
+
+Las fases representan transiciones y estados del juego. Estas son útiles para que cuando el 
+controlador se conecte con la interfaz gráfica, y un usuario interactue de manera incorrecta 
+cuando se decide una acción, una opción, etc; el controlador tenga forma de intentar realizar 
+cierto acción, comprobando primero si esta en una fase correcta, y en caso contrario no se caiga 
+el programa. 
+
+Además incorporamos 4 nuevos clases de Exepciones, para diversos escenarios en donde se intenta
+realizar una acción no valida o incorrecta. InvalidOptionException se arroja cuando se intenta 
+un metodo a nivel de la fase y controlador, que no es permitida en esa fase en concreto. 
+InvalidInputException se arroja cuando el usario ingresa un input que no se asocia con ninguna 
+opción válida. InvalidTransitionException cuando una se quiere transicionar desde una fase a otra 
+que no es permitida por la primera. Finalmente InvalidAttackException que se arroja cuando 
+un personaje quiere atacar a otro y no es valido dado los tipos de personajes involucrados o el tipo 
+de ataque que se quiere utilizar para atacar a un enemigo. 
+
+### Observers y visitores
+
+Se tiene además 2 tipos de observers que usa el controlador para poder revisar momentos claves y 
+efectuar las acciones correspondientes. 
+
+También se crea un visitor para poder obtener todos los personajes atacables por boo dentro 
+de una lista de personajes. Se deja también la base hecha para expansiones del código y puedan 
+ser creados nuevos visitores para usos similares. 
+
+
+### Intrucciones 
+
+Solo selecciona el test deseado y ejecútalo.
+
 
 
 

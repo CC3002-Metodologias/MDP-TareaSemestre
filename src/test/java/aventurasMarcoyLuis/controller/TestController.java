@@ -1,14 +1,15 @@
 package aventurasMarcoyLuis.controller;
 
-import aventurasMarcoyLuis.AttackType;
-import aventurasMarcoyLuis.Items.HoneySyrup;
-import aventurasMarcoyLuis.Items.RedMushroom;
+import aventurasMarcoyLuis.controller.phasesAndExceptions.EndTurnPhase;
+import aventurasMarcoyLuis.model.AttackType;
+import aventurasMarcoyLuis.model.Items.HoneySyrup;
+import aventurasMarcoyLuis.model.Items.RedMushroom;
 import aventurasMarcoyLuis.interfaces.Ienemy;
 import aventurasMarcoyLuis.interfaces.Ipersonaje;
 import aventurasMarcoyLuis.interfaces.Items;
-import aventurasMarcoyLuis.personajes.Luis;
-import aventurasMarcoyLuis.personajes.Marco;
-import aventurasMarcoyLuis.personajes.abstract_clases.AbstractEnemy;
+import aventurasMarcoyLuis.model.personajes.Luis;
+import aventurasMarcoyLuis.model.personajes.Marco;
+import aventurasMarcoyLuis.model.personajes.abstract_clases.AbstractEnemy;
 import aventurasMarcoyLuis.controller.phasesAndExceptions.InvalidAttackException;
 import aventurasMarcoyLuis.controller.phasesAndExceptions.InvalidTransitionException;
 import org.junit.jupiter.api.Assertions;
@@ -95,8 +96,8 @@ public class TestController {
      */
     @Test
     public void turnsTest() throws InvalidTransitionException {
-        pLuis = new PlayerIn(luis, "P\nP");
-        pMarco = new PlayerIn(marco, "P\nP");
+        pLuis = new PlayerIn(luis);
+        pMarco = new PlayerIn(marco);
         gameController.addPlayer(pMarco).addPlayer(pLuis);
         gameController.setOut(out);
         gameController.start_newRound();
@@ -111,11 +112,13 @@ public class TestController {
         //revisamos que el turno inicial sea de Marco y a su vez que se pueda obtener el turno actual.
         assert (Objects.equals(gameController.getOwnerTurn(), pMarco));
 
-        gameController.tryToSelectAction();
+        gameController.setPhase(new EndTurnPhase());
+        gameController.changeTurn();
         //revisamos que el turno ahora sea de Luis
         assert (Objects.equals(gameController.getOwnerTurn(), pLuis));
 
-        gameController.tryToSelectAction();
+        gameController.setPhase(new EndTurnPhase());
+        gameController.changeTurn();
         //En este momento debería correr el turno de los enemigos. Revisamos que los enemigos hayan atacado haciendo algo de daño.
         assert (pMarco.getPlayer().getHPactual()< lifeMarco || pLuis.getPlayer().getHPactual()<lifeLuis);
 
@@ -306,7 +309,7 @@ public class TestController {
         gameController.tryToSelectAction();
         /* En este momento deberia ejecutarse el turno de los enemigos, pero solo hay un enemigo vivo y es Spiny.
            Este deberia knockiar a un Player(Marco o Luis) debido a la baja vida que fue configurada */
-        assert (!gameController.getPlayerInList().contains(pMarco) | !gameController.getPlayerInList().contains(pLuis));
+        assert (!gameController.getPlayerInTurns().contains(pMarco) | !gameController.getPlayerInTurns().contains(pLuis));
         assert (!gameController.getAllPersOfTurns().contains(marco) | !gameController.getAllPersOfTurns().contains(luis));
         assert (!gameController.iLost());
     }

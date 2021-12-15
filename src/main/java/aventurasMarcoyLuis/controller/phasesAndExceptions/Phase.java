@@ -1,6 +1,6 @@
 package aventurasMarcoyLuis.controller.phasesAndExceptions;
 
-import aventurasMarcoyLuis.AttackType;
+import aventurasMarcoyLuis.model.AttackType;
 import aventurasMarcoyLuis.controller.GameController;
 import aventurasMarcoyLuis.controller.PlayerIn;
 
@@ -211,4 +211,30 @@ public class Phase {
         throw new InvalidTransitionException("Can't change from this Phase to StartRound phase");
     }
 
+    /**
+     * El jugador (player) ataca a un enemigo.
+     * @throws InvalidAttackException Si el ataque no es permitido por la naturaleza de los personajes involucrados y tipo de ataque
+     * @throws InvalidOptionException Si la fase no permite efectuar ataques
+     */
+    public void attack(PlayerIn player, int i, AttackType at) throws InvalidAttackException, InvalidOptionException {
+        if (waitForAttack){
+            controller.playerAttack(player, i, at);
+        }
+        else {
+            throw new InvalidOptionException("You can´t attack in this moment");
+        }
+    }
+
+    /**
+     * El jugador (player) usa un item
+     * @throws InvalidOptionException Si la fase no permite usar un item.
+     */
+    public void useItem(PlayerIn player, int i) throws InvalidOptionException {
+        if (waitForUseItem){
+            controller.playerUseItem(player, i);
+        }
+        else {
+            throw new InvalidOptionException("You can´t use an item in this moment");
+        }
+    }
 }

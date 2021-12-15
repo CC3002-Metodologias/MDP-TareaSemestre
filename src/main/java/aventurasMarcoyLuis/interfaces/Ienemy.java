@@ -1,6 +1,6 @@
 package aventurasMarcoyLuis.interfaces;
 
-import aventurasMarcoyLuis.AttackType;
+import aventurasMarcoyLuis.model.AttackType;
 import aventurasMarcoyLuis.controller.phasesAndExceptions.InvalidAttackException;
 
 import java.util.List;

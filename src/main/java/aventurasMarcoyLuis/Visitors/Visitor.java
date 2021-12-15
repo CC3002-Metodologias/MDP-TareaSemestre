@@ -1,8 +1,10 @@
 package aventurasMarcoyLuis.Visitors;
 
 import aventurasMarcoyLuis.interfaces.Ienemy;
+import aventurasMarcoyLuis.interfaces.Ipersonaje;
 import aventurasMarcoyLuis.interfaces.Iplayer;
-import aventurasMarcoyLuis.personajes.*;
+import aventurasMarcoyLuis.model.personajes.*;
+
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class Visitor {
 
     }
     public void visitLuis(Luis luis){}
-    public void exploreList_Ipersonaje(List<Iplayer> l){
+    public void exploreList_Iplayer(List<Iplayer> l){
         for (Iplayer iplayer : l){
             iplayer.accept(this);
         }
@@ -34,5 +36,6 @@ public class Visitor {
             ienemy.accept(this);
         }
     }
+
 
 }

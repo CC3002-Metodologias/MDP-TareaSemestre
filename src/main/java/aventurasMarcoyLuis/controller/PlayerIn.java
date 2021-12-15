@@ -1,11 +1,9 @@
 package aventurasMarcoyLuis.controller;
 
-import aventurasMarcoyLuis.AttackType;
+import aventurasMarcoyLuis.model.AttackType;
 import aventurasMarcoyLuis.interfaces.Iplayer;
-import aventurasMarcoyLuis.controller.phasesAndExceptions.InvalidAttackException;
 import aventurasMarcoyLuis.controller.phasesAndExceptions.InvalidInputException;
-import aventurasMarcoyLuis.controller.phasesAndExceptions.InvalidOptionException;
-import aventurasMarcoyLuis.controller.phasesAndExceptions.InvalidTransitionException;
+
 
 
 import java.io.*;
@@ -61,12 +59,8 @@ public class PlayerIn {
 
     /**
      * Dado un Input selecciona la acción que realizará el jugador que controla el turno.
-     * @param gameController
-     * @throws InvalidOptionException
-     * @throws InvalidTransitionException
-     * @throws IOException
      */
-    public void selectAction(GameController gameController) throws InvalidTransitionException, IOException, InvalidInputException {
+    public void selectAction(GameController gameController) throws IOException, InvalidInputException {
         out.println("These are the baul and the enemies en this moment:");
         gameController.printBaul();
         gameController.printEnemyList();
@@ -74,15 +68,12 @@ public class PlayerIn {
         char action = inputChar("Select an action: A for Attack, I to use an Item and P to Pass turn: ");
 
         if (action == 'A'){
-            gameController.getPhase().toSetAttackPhase(this);
             gameController.tryToSelectAttack(this);
         }
         else if (action == 'I'){
-            gameController.getPhase().toChoosingItemPhase(this);
             gameController.tryToSelectItem(this);
         }
         else if (action == 'P'){
-            gameController.getPhase().toEndTurnPhase();
             gameController.tryToEndTurn();
         }
         else{
@@ -95,9 +86,6 @@ public class PlayerIn {
     /**
      * Dado un Input selecciona el tipo de ataque para luego seleccionar al enemigo.
      * @param gameController
-     * @throws InvalidOptionException
-     * @throws InvalidTransitionException
-     * @throws IOException
      */
     public void selectAttack(GameController gameController) throws IOException, InvalidInputException {
 
@@ -120,21 +108,17 @@ public class PlayerIn {
     /**
      * Dado un Input selecciona el enemigo al que el jugador atacará.
      * @param gameController
-     * @throws InvalidOptionException
-     * @throws InvalidTransitionException
      * @throws IOException
      */
-    public void selectVictimAttack(GameController gameController, AttackType attackType) throws IOException, InvalidTransitionException, InvalidInputException, InvalidAttackException {
+    public void selectVictimAttack(GameController gameController, AttackType attackType) throws IOException, InvalidInputException {
 
         char victim = inputChar("Indica al enemigo que quieres atacar escribiendo la posicion de este en la lista : ");
         int iVictim = Character.getNumericValue(victim)-1;
 
         if (iVictim < gameController.getEnemyList().size() && iVictim>= 0){
-            gameController.getPhase().toAttackingPhase(this);
-            gameController.playerAttack(this, iVictim,attackType);
+            gameController.tryToAttack(this, iVictim,attackType);
 
             if (gameController.notOver()){
-                gameController.getPhase().toEndTurnPhase();
                 gameController.tryToEndTurn();
             }
         }
@@ -144,20 +128,14 @@ public class PlayerIn {
 
     /**
      * Dado un Input selecciona el item que desea usar el jugador que controla el turno.
-     * @param gameController
-     * @throws InvalidOptionException
-     * @throws InvalidTransitionException
-     * @throws IOException
      */
-    public void selectItem(GameController gameController) throws IOException, InvalidTransitionException, InvalidInputException {
+    public void selectItem(GameController gameController) throws IOException, InvalidInputException {
 
         char item = inputChar("Indica el Item que quieres usar escribiendo la posicion de este en la lista : ");
         int idItem = Character.getNumericValue(item)-1;
 
         if (idItem < gameController.getBaul().size() && idItem >= 0){
-            gameController.getPhase().toUsingItemPhase(this);
-            gameController.playerUseItem(this, idItem);
-            gameController.getPhase().toEndTurnPhase();
+            gameController.tryToUseItem(this, idItem);
             gameController.tryToEndTurn();
         }
         else throw new InvalidInputException("Out of Baul's range");
